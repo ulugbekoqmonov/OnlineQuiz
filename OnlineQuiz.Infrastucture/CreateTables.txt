@@ -1,0 +1,27 @@
+﻿                            create table accounts( 
+                                account_id serial primary key,
+                                username varchar not null unique,
+                                password varchar not null check(length(password)>=8),
+                                email varchar,
+                                phone_number varchar check(length(phone_number)=13));
+
+                                create type category as enum ('math', 'physics', 'english', 'it', 'biology', 'geometry', 'chemistry', 'logical', 'psychological', 'geography', 'other');
+                                create type dificulty as enum('easy', 'medium','hard');
+                                
+                            create table inner_categories(
+                                inner_category_id serial primary key,
+                                inner_category_name varchar not null,                                
+                                category_name category,                                
+                                time interval);
+
+                            create table questions(
+                                question_id serial primary key,
+                                question text not null,
+                                option1 varchar not null,
+                                option2 varchar not null,
+                                option3 varchar not null,
+                                option4 varchar not null,
+                                true_option int not null,
+                                dificulty dificulty not null,
+                                inner_category_id int references inner_categories(inner_category_id)
+                                );
